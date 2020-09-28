@@ -1,34 +1,32 @@
 package application;
 
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
+
+import entities.Product;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		System.out.println("Operações de conjunto");
-		Set<Integer> a = new TreeSet<>(Arrays.asList(0, 2, 4, 5, 6, 8, 10));
-		Set<Integer> b = new TreeSet<>(Arrays.asList(5, 6, 7, 8, 9, 10));
+		//Como as coleções Hash testam igualdade?
+		//Se hashCode e equals estiverem implementados, primeiro testa hashCode e se verdadeiro confirma com o equals
+		//Se não o teste será por ponteiros dos objetos
+		Set<Product> set = new HashSet<>();
 		
-		System.out.println();
-		System.out.println("Conjunto a " + a);
-		System.out.println("Conjunto b " + b);
+		set.add(new Product("TV", 900.0));
+		set.add(new Product("Notebook", 1200.0));
+		set.add(new Product("Tablet", 400.0));
 		
-		// union
-		Set<Integer> c = new TreeSet<>(a); //Usando um construtor especial passando uma coleção como argumento
-		c.addAll(b);  //União com conjunto c com o conjunto b
-		System.out.println("a+b " + c);
+		Product prod = new Product("Notebook", 1200.0);
 		
-		// intersection
-		Set<Integer> d = new TreeSet<>(a);
-		d.retainAll(b); //Intersecção do conjunto d, que é cópia de a, com o conjunto b, ou sej somente os que repetem nos dois conjuntos
-		System.out.println("a intersecção com b " + d);
-		
-		// difference
-		Set<Integer> e = new TreeSet<>(a);
-		e.removeAll(b); //Diferença entre o conjunto "e" e o conjunto b; ou seja, tiro do conjunto e todos os elementos do conjunto b
-		System.out.println("a-b " + e);
+		//Dois testes foram feitos aqui; primeiro sem a implementação hashCode e equals
+		//e depois com estas implementações.
+		//Na primeira foi feita por ponteiros, já que não tinha hashCode e equals, então as duas instaciações geraram
+		//ponteiros diferentes e portanto a igualdade é falsa.
+		//Na segunda, com a implementação do hashCode e equals, a comparação foi feita por comparação de conteúdo e como os
+		//conteúdos são iguais o resultado foi verdadeiro.
+		//Essa implementações foram feitas na classe Product.
+		System.out.println(set.contains(prod));
 	}
 }
