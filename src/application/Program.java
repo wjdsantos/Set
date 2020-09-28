@@ -1,54 +1,34 @@
 package application;
 
-import java.util.LinkedHashSet;
+import java.util.Arrays;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		Set<String> set = new LinkedHashSet<>(); //Terceiro exemplo: instanciação do LinfedHashSet - mantendo a ordem da lista 
-		                                   // Utilização dos métodos add(), contains() e clear()
-		set.add("TV");
-		set.add("Tablet");
-		set.add("Notebook");
+		System.out.println("Operações de conjunto");
+		Set<Integer> a = new TreeSet<>(Arrays.asList(0, 2, 4, 5, 6, 8, 10));
+		Set<Integer> b = new TreeSet<>(Arrays.asList(5, 6, 7, 8, 9, 10));
 		
-		System.out.println("Mantendo a ordem de entrada na lista");
-		System.out.println("Testando as operações remove, removeif");
+		System.out.println();
+		System.out.println("Conjunto a " + a);
+		System.out.println("Conjunto b " + b);
 		
-		for (String p : set) {
-			System.out.println(p);
-		}
+		// union
+		Set<Integer> c = new TreeSet<>(a); //Usando um construtor especial passando uma coleção como argumento
+		c.addAll(b);  //União com conjunto c com o conjunto b
+		System.out.println("a+b " + c);
 		
-		System.out.println("--------------------- usando o remove");
-		set.remove("Tablet");  //Removendo o item Tablet da lista
-
-		for (String p : set) {
-			System.out.println(p);
-		}
-
-		System.out.println("--------------------- usando o removeIf");
-		System.out.println("Removendo todos os itens que tenham mais de 3 caracteres");
-		set.clear();        //Limpando a lista
-		set.add("Tablet");  //Recarregando a lista
-		set.add("Notebook");
-		set.add("TV");
-		set.removeIf(x -> x.length() >= 3); //Removendo todos os itens que tenham mais de 3 caracteres
-
-		for (String p : set) {
-			System.out.println(p);
-		}
+		// intersection
+		Set<Integer> d = new TreeSet<>(a);
+		d.retainAll(b); //Intersecção do conjunto d, que é cópia de a, com o conjunto b, ou sej somente os que repetem nos dois conjuntos
+		System.out.println("a intersecção com b " + d);
 		
-		System.out.println("--------------------- usando o removeIf");
-		System.out.println("Removendo todos os itens que iniciam com 'T'");
-		set.clear();        //Limpando a lista
-		set.add("Tablet");  //Recarregando a lista
-		set.add("Notebook");
-		set.add("TV");
-		set.removeIf(x -> x.charAt(0) == 'T'); //Removendo todos os itens que iniciam com 'T'
-
-		for (String p : set) {
-			System.out.println(p);
-		}
+		// difference
+		Set<Integer> e = new TreeSet<>(a);
+		e.removeAll(b); //Diferença entre o conjunto "e" e o conjunto b; ou seja, tiro do conjunto e todos os elementos do conjunto b
+		System.out.println("a-b " + e);
 	}
 }
